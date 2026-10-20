@@ -52,8 +52,8 @@ const devLog = document.getElementById("devLog");
 
    TODO: Replace the line below with your own state variable.
 ---------------------------------------------------------------- */
-let gameState = 0; // <-- rename this and set a starting value
-
+let lastReward = ""; // <-- rename this and set a starting value
+let randomNumber = 0;
 
 /* ----------------------------------------------------------------
    STEP 3 (OPTIONAL — Random Rewards teams need this):
@@ -70,6 +70,8 @@ let gameState = 0; // <-- rename this and set a starting value
    step or delete it.
 ---------------------------------------------------------------- */
 // const rewardOptions = [/* TODO: add your possible values */];
+
+const rewardOptions = ["$1", "$5", "$10", "$100"]; // <-- example rewards
 
 
 /* ----------------------------------------------------------------
@@ -135,6 +137,7 @@ function handleAnswer() {
 
   if (correct) {
     // TODO: what happens to your game state when the answer is correct?
+    randomNumber = Math.floor(Math.random() * rewardOptions.length);
     message.textContent = "Correct!";
   } else {
     // TODO: what happens to your game state when the answer is incorrect?
@@ -165,6 +168,19 @@ function handleAnswer() {
   // --------------------------------------------------------------
 
   // TODO: add your milestone if/else if/else chain here
+  if (randomNumber >= 3) {
+    lastReward = rewardOptions[3];
+  }
+  else if (randomNumber >= 2) {
+    lastReward = rewardOptions[2];
+  }
+  else if (randomNumber >= 1) {
+    lastReward = rewardOptions[1];
+  }
+  else {
+    lastReward = rewardOptions[0];
+  }
+
 
 
   // --------------------------------------------------------------
@@ -173,12 +189,12 @@ function handleAnswer() {
   // Remember: changing a variable does NOT change what the player
   // sees. You have to update the DOM separately.
   // --------------------------------------------------------------
-  statValue.textContent = gameState;
+  statValue.textContent = lastReward;
 
   // This logs to YOUR dev console (in the browser, press F12 to see
   // the real one too) — it's for your team, not the player.
-  console.log("Current state:", gameState, "| Correct?", correct);
-  devLog.textContent = `state = ${gameState} | last answer correct = ${correct}`;
+  console.log("Current state:", lastReward, "| Correct?", correct);
+  devLog.textContent = `state = ${lastReward} | last answer correct = ${correct}`;
 }
 
 
@@ -194,9 +210,9 @@ function handleAnswer() {
    TODO: Update the starting value below to match Step 2.
 ---------------------------------------------------------------- */
 function handleReset() {
-  gameState = 0; // <-- match this to your starting value from Step 2
+  lastReward = "—"; // <-- match this to your starting value from Step 2
 
-  statValue.textContent = gameState;
+  statValue.textContent = lastReward;
   message.textContent = "Press \"Answer\" to begin!";
   devLog.textContent = "Waiting for input...";
 
@@ -217,12 +233,12 @@ resetBtn.addEventListener("click", handleReset);
 /* ================================================================
    ✅ CHECKLIST BEFORE YOU SHOWCASE
    ================================================================
-   [ ] One state variable that clearly represents your feature
-   [ ] At least 2 comparison operators used (>, <, >=, <=, ===)
-   [ ] An if / else (or if / else if / else) chain with 3+ outcomes
-   [ ] Feedback message updates for the player
-   [ ] statLabel in index.html renamed to match your feature
-   [ ] Reset button correctly returns everything to start values
+   [X] One state variable that clearly represents your feature
+   [X] At least 2 comparison operators used (>, <, >=, <=, ===)
+   [X] An if / else (or if / else if / else) chain with 3+ outcomes
+   [X] Feedback message updates for the player
+   [X] statLabel in index.html renamed to match your feature
+   [X] Reset button correctly returns everything to start values
 
    Stuck? Re-read Slide 4 (Example Game Logic) and Slide 7
    (Think Like a Game Designer) — your IF -> THEN sentence should
